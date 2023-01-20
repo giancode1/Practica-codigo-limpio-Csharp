@@ -43,8 +43,8 @@ namespace ToDo
             Console.WriteLine("4. Salir");
 
             // Read line
-            string MenuSelected = Console.ReadLine();
-            return Convert.ToInt32(MenuSelected);
+            string menuSelected = Console.ReadLine();
+            return Convert.ToInt32(menuSelected);
         }
 
         public static void ShowMenuRemove()
@@ -56,19 +56,29 @@ namespace ToDo
                 // Show current taks
                 ShowMenuTaskList();
 
-                string MenuSelected = Console.ReadLine();
+                string menuSelected = Console.ReadLine();
 
                 // Remove one position
-                int indexToRemove = Convert.ToInt32(MenuSelected) - 1;
-                if (indexToRemove > -1 && TaskList.Count > 0)
+                int indexToRemove = Convert.ToInt32(menuSelected) - 1;
+
+                if(indexToRemove > (TaskList.Count -1) || indexToRemove <0)
+                    Console.WriteLine("Numero de tarea seleccionado no es válido");
+                else
                 {
-                    string taskToRemove = TaskList[indexToRemove];
-                    TaskList.RemoveAt(indexToRemove);
-                    Console.WriteLine("Tarea " + taskToRemove + " eliminada");
+                    if (indexToRemove > -1 && TaskList.Count > 0)
+                    {
+                        string taskToRemove = TaskList[indexToRemove];
+                        TaskList.RemoveAt(indexToRemove);
+                        Console.WriteLine("Tarea " + taskToRemove + " eliminada");
+                    }
+                    
                 }
+
             }
             catch (Exception)
             {
+                Console.WriteLine("Ha ocurrido un error al eliminar la tarea");
+                //ex.Message => para log
             }
         }
 
@@ -78,11 +88,16 @@ namespace ToDo
             {
                 Console.WriteLine("Ingrese el nombre de la tarea: ");
                 string newtask = Console.ReadLine();
+                if (newtask == string.Empty || string.IsNullOrWhiteSpace(newtask)){
+                    Console.WriteLine("La tarea no puede estar en blanco");
+                    return;
+                }
                 TaskList.Add(newtask);
                 Console.WriteLine("Tarea registrada");
             }
             catch (Exception)
             {
+                Console.WriteLine("Ha ocurrido un error al ingresar una nueva tarea");
             }
         }
 
