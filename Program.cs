@@ -5,11 +5,10 @@ namespace ToDo
 {
     internal class Program
     {
-        public static List<string> TaskList { get; set; }
+        public static List<string> TaskList { get; set; } = new List<string>(); // inicializa
 
         static void Main(string[] args)
         {
-            TaskList = new List<string>();
             int menuSelected = 0;
 
             do
@@ -61,7 +60,7 @@ namespace ToDo
                 // Remove one position
                 int indexToRemove = Convert.ToInt32(menuSelected) - 1;
 
-                if(indexToRemove > (TaskList.Count -1) || indexToRemove <0)
+                if (indexToRemove > (TaskList.Count - 1) || indexToRemove < 0)
                     Console.WriteLine("Numero de tarea seleccionado no es válido");
                 else
                 {
@@ -69,9 +68,9 @@ namespace ToDo
                     {
                         string taskToRemove = TaskList[indexToRemove];
                         TaskList.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + taskToRemove + " eliminada");
+                        Console.WriteLine($"Tarea {taskToRemove} eliminada");
                     }
-                    
+
                 }
 
             }
@@ -88,7 +87,8 @@ namespace ToDo
             {
                 Console.WriteLine("Ingrese el nombre de la tarea: ");
                 string newtask = Console.ReadLine();
-                if (newtask == string.Empty || string.IsNullOrWhiteSpace(newtask)){
+                if (newtask == string.Empty || string.IsNullOrWhiteSpace(newtask))
+                {
                     Console.WriteLine("La tarea no puede estar en blanco");
                     return;
                 }
@@ -103,17 +103,18 @@ namespace ToDo
 
         public static void ShowMenuTaskList()
         {
-            if (TaskList == null || TaskList.Count == 0)
-            {
-                Console.WriteLine("No hay tareas por realizar");
-            }
-            else
+            if (TaskList?.Count > 0)
             {
                 Console.WriteLine("----------------------------------------");
                 int indexTask = 1;
                 TaskList.ForEach(task => Console.WriteLine($"{indexTask++}. {task}"));
                 Console.WriteLine("----------------------------------------");
             }
+            else
+            {
+                Console.WriteLine("No hay tareas por realizar");
+            }
+
         }
     }
 
