@@ -11,6 +11,7 @@ namespace ToDo
         {
             TaskList = new List<string>();
             int menuSelected = 0;
+
             do
             {
                 menuSelected = ShowMainMenu();
@@ -42,8 +43,8 @@ namespace ToDo
             Console.WriteLine("4. Salir");
 
             // Read line
-            string inputOption = Console.ReadLine();
-            return Convert.ToInt32(inputOption);
+            string MenuSelected = Console.ReadLine();
+            return Convert.ToInt32(MenuSelected);
         }
 
         public static void ShowMenuRemove()
@@ -51,24 +52,19 @@ namespace ToDo
             try
             {
                 Console.WriteLine("Ingrese el número de la tarea a remover: ");
-                // Show current taks
-                for (int i = 0; i < TaskList.Count; i++)
-                {
-                    Console.WriteLine((i + 1) + ". " + TaskList[i]);
-                }
-                Console.WriteLine("----------------------------------------");
 
-                string inputOption = Console.ReadLine();
+                // Show current taks
+                ShowMenuTaskList();
+
+                string MenuSelected = Console.ReadLine();
+
                 // Remove one position
-                int indexToRemove = Convert.ToInt32(inputOption) - 1;
-                if (indexToRemove > -1)
+                int indexToRemove = Convert.ToInt32(MenuSelected) - 1;
+                if (indexToRemove > -1 && TaskList.Count > 0)
                 {
-                    if (TaskList.Count > 0)
-                    {
-                        string task = TaskList[indexToRemove];
-                        TaskList.RemoveAt(indexToRemove);
-                        Console.WriteLine("Tarea " + task + " eliminada");
-                    }
+                    string taskToRemove = TaskList[indexToRemove];
+                    TaskList.RemoveAt(indexToRemove);
+                    Console.WriteLine("Tarea " + taskToRemove + " eliminada");
                 }
             }
             catch (Exception)
@@ -81,8 +77,8 @@ namespace ToDo
             try
             {
                 Console.WriteLine("Ingrese el nombre de la tarea: ");
-                string task = Console.ReadLine();
-                TaskList.Add(task);
+                string newtask = Console.ReadLine();
+                TaskList.Add(newtask);
                 Console.WriteLine("Tarea registrada");
             }
             catch (Exception)
@@ -99,10 +95,8 @@ namespace ToDo
             else
             {
                 Console.WriteLine("----------------------------------------");
-                for (int i = 0; i < TaskList.Count; i++)
-                {
-                    Console.WriteLine((i + 1) + ". " + TaskList[i]);
-                }
+                int indexTask = 1;
+                TaskList.ForEach(task => Console.WriteLine($"{indexTask++}. {task}"));
                 Console.WriteLine("----------------------------------------");
             }
         }
