@@ -1,4 +1,4 @@
-﻿List<string> TaskList = new List<string>(); // inicializa
+﻿List<string> TaskList = new List<string>();
 int menuSelected = 0;
 
 do
@@ -19,9 +19,9 @@ do
 } while ((Menu)menuSelected != Menu.Exit);
 
 /// <summary>
-/// Show the main menu 
+/// Show the options for Tasks, 1. Nueva tarea
 /// </summary>
-/// <returns>Returns option indicated by user</returns>
+/// <returns>Returns option selected by user</returns>
 int ShowMainMenu()
 {
     Console.WriteLine("----------------------------------------");
@@ -31,7 +31,6 @@ int ShowMainMenu()
     Console.WriteLine("3. Tareas pendientes");
     Console.WriteLine("4. Salir");
 
-    // Read line
     string menuSelected = Console.ReadLine();
     return Convert.ToInt32(menuSelected);
 }
@@ -42,12 +41,11 @@ void ShowMenuRemove()
     {
         Console.WriteLine("Ingrese el número de la tarea a remover: ");
 
-        // Show current taks
         ShowMenuTaskList();
 
         string taskNumberToDelete = Console.ReadLine();
 
-        // Remove one position
+        // Remove one position because the array starts in 0
         int indexToRemove = Convert.ToInt32(taskNumberToDelete) - 1;
 
         if (indexToRemove > (TaskList.Count - 1) || indexToRemove < 0)
@@ -65,7 +63,6 @@ void ShowMenuRemove()
     catch (Exception)
     {
         Console.WriteLine("Ha ocurrido un error al eliminar la tarea");
-        //ex.Message => para log
     }
 }
 
@@ -102,9 +99,7 @@ void ShowMenuTaskList()
     {
         Console.WriteLine("No hay tareas por realizar");
     }
-
 }
-
 
 public enum Menu
 {
